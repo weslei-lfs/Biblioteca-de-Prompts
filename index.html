@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de Prompts — 600 prompts prontos para 6 IAs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #060706;
+    --bg-soft: #0d0f0d;
+    --line: #1c1f1c;
+    --line-accent: #1e2a0e;
+    --text: #f4f4f2;
+    --text-dim: #9a9a92;
+    --text-dimmer: #5f6058;
+    --accent: #a3ff12;
+    --accent-dim: #6f9e15;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .display{ font-family:'Space Grotesk', sans-serif; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(6,7,6,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:17px; letter-spacing:-0.02em; }
+  .brand-dot{ width:9px; height:9px; border-radius:2px; background:var(--accent); box-shadow:0 0 12px var(--accent); }
+  .nav-cta{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:500;
+    background:var(--accent); color:#06130a; padding:9px 18px; border-radius:6px;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ position:relative; overflow:hidden; padding:96px 0 72px; }
+  .hero::before{
+    content:''; position:absolute; top:-200px; right:-180px; width:640px; height:640px;
+    background:radial-gradient(circle, rgba(163,255,18,0.16) 0%, rgba(163,255,18,0) 65%);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:''; position:absolute; bottom:-260px; left:-200px; width:560px; height:560px;
+    background:radial-gradient(circle, rgba(163,255,18,0.08) 0%, rgba(163,255,18,0) 70%);
+    pointer-events:none;
+  }
+  .hero-grid{ position:relative; display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;
+    color:var(--accent); border:1px solid var(--line-accent); background:rgba(163,255,18,0.05);
+    padding:6px 12px; border-radius:100px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:'●'; font-size:8px; }
+  h1{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-0.03em;
+    font-size:56px; line-height:1.04; margin-bottom:22px;
+  }
+  h1 .accent{ color:var(--accent); }
+  .hero p.lede{ font-size:17px; color:var(--text-dim); max-width:480px; margin-bottom:34px; }
+  .hero-ctas{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .btn-primary{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:14.5px;
+    background:var(--accent); color:#06130a; padding:15px 26px; border-radius:8px;
+    display:inline-flex; align-items:center; gap:8px;
+    box-shadow:0 0 0 0 rgba(163,255,18,0.4); transition:transform .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-1px); }
+  .price-hint{ font-size:13px; color:var(--text-dimmer); }
+  .price-hint b{ color:var(--text); }
+
+  /* terminal signature element */
+  .terminal{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:12px;
+    overflow:hidden; box-shadow:0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:7px; padding:12px 16px;
+    border-bottom:1px solid var(--line); background:#0a0b0a;
+  }
+  .terminal-bar span{ width:10px; height:10px; border-radius:50%; background:#2a2c28; }
+  .terminal-bar .path{ margin-left:8px; font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-dimmer); }
+  .terminal-body{ padding:20px 20px 22px; font-family:'JetBrains Mono', monospace; font-size:13px; }
+  .t-line{ display:flex; gap:10px; padding:5px 0; color:var(--text-dim); }
+  .t-line .idx{ color:var(--text-dimmer); width:18px; flex-shrink:0; }
+  .t-line .ia{ color:var(--accent); width:96px; flex-shrink:0; }
+  .t-line .count{ margin-left:auto; color:var(--text-dimmer); }
+  .t-prompt{ color:var(--text); }
+  .t-cursor{ display:inline-block; width:7px; height:14px; background:var(--accent); vertical-align:middle; animation:blink 1s step-end infinite; margin-left:2px; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .t-total{ margin-top:14px; padding-top:14px; border-top:1px solid var(--line); color:var(--text); font-weight:600; }
+  .t-total .accent{ color:var(--accent); }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding:88px 0; border-top:1px solid var(--line); }
+  .section-tag{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:0.12em;
+    color:var(--accent); margin-bottom:14px; text-transform:uppercase;
+  }
+  h2{ font-family:'Space Grotesk', sans-serif; font-size:34px; font-weight:700; letter-spacing:-0.02em; margin-bottom:16px; }
+  .section-lede{ color:var(--text-dim); font-size:16px; max-width:560px; margin-bottom:48px; }
+
+  /* ---------- PROBLEM ---------- */
+  .problem-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .problem-card{ background:var(--bg); padding:32px 28px; }
+  .problem-card .num{ font-family:'JetBrains Mono', monospace; color:var(--text-dimmer); font-size:12px; margin-bottom:14px; }
+  .problem-card h3{ font-family:'Space Grotesk', sans-serif; font-size:18px; margin-bottom:10px; }
+  .problem-card p{ color:var(--text-dim); font-size:14.5px; }
+
+  /* ---------- MODULES ---------- */
+  .modules-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .module-card{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:26px;
+    transition:border-color .15s ease;
+  }
+  .module-card:hover{ border-color:var(--line-accent); }
+  .module-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+  .module-name{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:18px; }
+  .module-badge{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); border:1px solid var(--line-accent); padding:3px 8px; border-radius:100px; }
+  .module-card ul{ list-style:none; }
+  .module-card li{ font-size:13.5px; color:var(--text-dim); padding:5px 0; border-bottom:1px dashed var(--line); }
+  .module-card li:last-child{ border-bottom:none; }
+  .module-foot{ margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dimmer); }
+  .module-foot b{ color:var(--text); }
+
+  /* ---------- PREVIEW / SAMPLE PDF ---------- */
+  .preview-wrap{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center; }
+  .pdf-mock{
+    background:#0a0b0a; border:1px solid var(--line); border-radius:10px; padding:30px;
+    position:relative; box-shadow:0 40px 90px -40px rgba(0,0,0,0.8);
+  }
+  .pdf-mock::before{
+    content:''; position:absolute; inset:0; border-radius:10px;
+    background:radial-gradient(circle at 88% 10%, rgba(163,255,18,0.13) 0%, transparent 45%);
+  }
+  .pdf-tag{ position:relative; display:inline-block; border:1.5px solid var(--accent); color:var(--accent); font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.08em; padding:4px 10px; border-radius:3px; margin-bottom:14px; }
+  .pdf-mock h3{ position:relative; font-family:'Space Grotesk', sans-serif; font-size:22px; margin-bottom:16px; }
+  .pdf-mock h3 span{ color:var(--accent); }
+  .pdf-box{ position:relative; background:#0d0f0d; border:1px solid var(--line-accent); border-left:3px solid var(--accent); border-radius:6px; padding:16px 18px; font-size:12.5px; color:#d8d8d3; line-height:1.6; }
+  .preview-list{ list-style:none; }
+  .preview-list li{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .preview-list li:last-child{ border-bottom:none; }
+  .preview-list .check{ color:var(--accent); font-family:'JetBrains Mono', monospace; flex-shrink:0; }
+  .preview-list h4{ font-family:'Space Grotesk', sans-serif; font-size:16px; margin-bottom:4px; }
+  .preview-list p{ color:var(--text-dim); font-size:14px; }
+
+  /* ---------- OFFER ---------- */
+  .offer-box{
+    background:linear-gradient(180deg, rgba(163,255,18,0.06), rgba(163,255,18,0) 40%), var(--bg-soft);
+    border:1px solid var(--line-accent); border-radius:16px; padding:52px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .offer-eyebrow{ font-family:'JetBrains Mono', monospace; color:var(--accent); font-size:12.5px; letter-spacing:0.1em; margin-bottom:18px; }
+  .price-row{ display:flex; align-items:baseline; justify-content:center; gap:16px; margin-bottom:8px; flex-wrap:wrap; }
+  .price-old{ font-family:'JetBrains Mono', monospace; color:var(--text-dimmer); font-size:22px; text-decoration:line-through; }
+  .price-new{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:64px; color:var(--accent); letter-spacing:-0.02em; }
+  .price-new sup{ font-size:26px; top:-24px; }
+  .price-note{ color:var(--text-dim); font-size:14.5px; margin-bottom:34px; }
+  .offer-includes{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:0 auto 34px; max-width:760px; text-align:left; }
+  .offer-includes div{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--text-dim); }
+  .offer-includes .check{ color:var(--accent); flex-shrink:0; }
+  .btn-offer{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:16px;
+    background:var(--accent); color:#06130a; padding:18px 40px; border-radius:8px;
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .offer-sub{ margin-top:16px; font-size:12.5px; color:var(--text-dimmer); }
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{ display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:32px 36px; }
+  .guarantee-badge{ width:64px; height:64px; border-radius:50%; border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--accent); font-size:22px; flex-shrink:0; }
+  .guarantee h3{ font-family:'Space Grotesk', sans-serif; font-size:19px; margin-bottom:6px; }
+  .guarantee p{ color:var(--text-dim); font-size:14.5px; }
+
+  /* ---------- FAQ ---------- */
+  details{ border-bottom:1px solid var(--line); padding:20px 0; }
+  summary{ cursor:pointer; font-family:'Space Grotesk', sans-serif; font-size:16.5px; font-weight:600; list-style:none; display:flex; justify-content:space-between; align-items:center; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:'+'; color:var(--accent); font-size:22px; font-weight:400; margin-left:16px; }
+  details[open] summary::after{ content:'–'; }
+  details p{ color:var(--text-dim); font-size:14.5px; margin-top:14px; max-width:640px; }
+
+  /* ---------- FOOTER CTA ---------- */
+  .final-cta{ text-align:center; padding:96px 0; }
+  .final-cta h2{ font-size:40px; max-width:640px; margin:0 auto 16px; }
+  .final-cta p{ color:var(--text-dim); margin-bottom:36px; }
+
+  footer{ border-top:1px solid var(--line); padding:40px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  footer .f-brand{ font-family:'Space Grotesk', sans-serif; font-weight:700; }
+  footer .f-links{ display:flex; gap:24px; font-size:13px; color:var(--text-dimmer); }
+
+  @media (max-width: 860px){
+    .hero-grid, .preview-wrap{ grid-template-columns:1fr; }
+    .problem-grid{ grid-template-columns:1fr; }
+    .modules-grid{ grid-template-columns:1fr 1fr; }
+    .offer-includes{ grid-template-columns:1fr; }
+    .guarantee{ grid-template-columns:1fr; text-align:center; }
+    .guarantee-badge{ margin:0 auto; }
+    h1{ font-size:38px; }
+    h2{ font-size:27px; }
+    .price-new{ font-size:48px; }
+  }
+  @media (max-width: 560px){
+    .modules-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="brand-dot"></span>Biblioteca de Prompts</div>
+    <a href="#oferta" class="nav-cta">QUERO ACESSO →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">600 PROMPTS · 6 IAs · 60 TEMAS</div>
+      <h1>Pare de tentar<br>adivinhar o <span class="accent">prompt certo</span>.</h1>
+      <p class="lede">Uma biblioteca completa e organizada com 600 prompts prontos para ChatGPT, Claude, Manus, Gemini, Meta AI e Claude Code — testados, estruturados e prontos pra copiar e usar hoje.</p>
+      <div class="hero-ctas">
+        <a href="#oferta" class="btn-primary">ACESSAR A BIBLIOTECA →</a>
+        <span class="price-hint">a partir de <b>R$67</b> · acesso vitalício</span>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+        <span class="path">biblioteca-de-prompts/index</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="idx">01</span><span class="ia">ChatGPT</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-line"><span class="idx">02</span><span class="ia">Claude</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-line"><span class="idx">03</span><span class="ia">Manus</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-line"><span class="idx">04</span><span class="ia">Gemini</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-line"><span class="idx">05</span><span class="ia">Meta AI</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-line"><span class="idx">06</span><span class="ia">Claude Code</span><span>10 temas</span><span class="count">100 prompts</span></div>
+        <div class="t-prompt">$ search --tema "imagens" <span class="t-cursor"></span></div>
+        <div class="t-total">TOTAL <span class="accent">600 arquivos</span> · entrega imediata</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="problema">
+  <div class="wrap">
+    <div class="section-tag">O PROBLEMA</div>
+    <h2>Prompt bom não nasce na hora do desespero</h2>
+    <p class="section-lede">Você abre o ChatGPT, tenta escrever um prompt, o resultado sai genérico, você tenta de novo — e o tempo que devia estar produzindo vira tempo tentando adivinhar a frase certa.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="num mono">/01</div>
+        <h3>Tempo perdido reformulando</h3>
+        <p>Cada prompt mal estruturado é um resultado ruim — e um novo tento do zero.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num mono">/02</div>
+        <h3>Resultado genérico</h3>
+        <p>Sem estrutura, a IA entrega respostas rasas que exigem retrabalho manual.</p>
+      </div>
+      <div class="problem-card">
+        <div class="num mono">/03</div>
+        <h3>Uma IA só não resolve tudo</h3>
+        <p>Cada ferramenta tem seus pontos fortes — e prompts que funcionam melhor nela.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modulos">
+  <div class="wrap">
+    <div class="section-tag">O QUE ESTÁ DENTRO</div>
+    <h2>6 inteligências artificiais. Um só acervo.</h2>
+    <p class="section-lede">Cada IA tem seu próprio módulo com 10 temas e 15 prompts prontos por tema — já testados e organizados por assunto.</p>
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">ChatGPT</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>Imagens</li><li>Marketing</li><li>Copywriting e Vendas</li><li>Programação</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">Claude</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>Escrita e Redação</li><li>Análise de Documentos</li><li>Raciocínio e Estratégia</li><li>Storytelling</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">Manus</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>Criação de Apps</li><li>Sites e Landing Pages</li><li>Automações</li><li>Dashboards</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">Gemini</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>Pesquisa em Tempo Real</li><li>Google Workspace</li><li>Marketing com Dados Reais</li><li>Viagem e Local</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">Meta AI</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>WhatsApp e Instagram</li><li>Geração de Imagens</li><li>Anúncios (Meta Ads)</li><li>Reels e Vídeos Curtos</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+      <div class="module-card">
+        <div class="module-top"><span class="module-name">Claude Code</span><span class="module-badge">100</span></div>
+        <ul>
+          <li>Criação de Projetos</li><li>Debug e Bugs</li><li>Testes Automatizados</li><li>Deploy e DevOps</li><li>+ 6 temas</li>
+        </ul>
+        <div class="module-foot">10 temas · <b>100 prompts</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="amostra">
+  <div class="wrap preview-wrap">
+    <div class="pdf-mock">
+      <div class="pdf-tag mono">TEMA · IMAGENS</div>
+      <h3>Estilo <span>Cinematográfico</span></h3>
+      <div class="pdf-box">
+        "Crie uma imagem no estilo cinematográfico de [descreva seu assunto]. Use iluminação dramática de contraste (chiaroscuro), com uma fonte de luz principal lateral e sombras profundas..."
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">POR DENTRO DE CADA PDF</div>
+      <h2>Não é só o prompt. É o prompt pronto pra funcionar.</h2>
+      <ul class="preview-list">
+        <li><span class="check mono">→</span><div><h4>Prompt completo e testado</h4><p>Já vem estruturado, sem precisar adivinhar o que escrever.</p></div></li>
+        <li><span class="check mono">→</span><div><h4>Como personalizar</h4><p>Dicas práticas de como ajustar o prompt pro seu caso específico.</p></div></li>
+        <li><span class="check mono">→</span><div><h4>Exemplo de uso real</h4><p>Um exemplo pronto mostrando o prompt em ação.</p></div></li>
+        <li><span class="check mono">→</span><div><h4>Identidade visual única</h4><p>Todos os 600 PDFs seguem o mesmo padrão visual profissional.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="wrap">
+    <div class="offer-box">
+      <div class="offer-eyebrow mono">ACESSO COMPLETO — TEMPO LIMITADO</div>
+      <div class="price-row">
+        <span class="price-old mono">R$197</span>
+        <span class="price-new">R$67</span>
+      </div>
+      <p class="price-note">pagamento único · acesso vitalício · sem mensalidade</p>
+      <div class="offer-includes">
+        <div><span class="check mono">✓</span> 600 prompts prontos (6 IAs)</div>
+        <div><span class="check mono">✓</span> 60 temas organizados</div>
+        <div><span class="check mono">✓</span> Atualizações futuras inclusas</div>
+        <div><span class="check mono">✓</span> Acesso ao grupo exclusivo</div>
+        <div><span class="check mono">✓</span> Acesso imediato após a compra</div>
+        <div><span class="check mono">✓</span> Garantia de 7 dias</div>
+      </div>
+      <a href="https://pay.kiwify.com.br/Po6FZDE" class="btn-offer" id="checkout-link">GARANTIR MEU ACESSO →</a>
+      <div class="offer-sub">Pagamento processado com segurança · Kiwify</div>
+    </div>
+  </div>
+</section>
+
+<section id="garantia">
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="guarantee-badge">7d</div>
+      <div>
+        <h3>7 dias de garantia incondicional</h3>
+        <p>Se por qualquer motivo a Biblioteca de Prompts não for o que você esperava, é só pedir reembolso dentro de 7 dias. Sem perguntas, sem burocracia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-tag">DÚVIDAS FREQUENTES</div>
+    <h2>Perguntas que você já deve ter</h2>
+    <div>
+      <details open>
+        <summary>Como eu recebo os prompts depois de comprar?</summary>
+        <p>Assim que o pagamento é confirmado, você recebe acesso imediato à área de membros com os 600 PDFs organizados por IA e por tema, prontos para baixar.</p>
+      </details>
+      <details>
+        <summary>Preciso saber programar ou entender de IA pra usar?</summary>
+        <p>Não. Os prompts já vêm prontos — você só copia, cola na IA escolhida, e ajusta os campos indicados. Cada PDF traz um exemplo de uso pra facilitar.</p>
+      </details>
+      <details>
+        <summary>Funciona nas versões gratuitas das IAs?</summary>
+        <p>Sim, a maioria dos prompts funciona bem nas versões gratuitas. Algumas funcionalidades específicas (como certos recursos do Gemini ou Manus) podem exigir a versão paga da ferramenta.</p>
+      </details>
+      <details>
+        <summary>É pagamento único ou assinatura?</summary>
+        <p>Pagamento único. Você paga uma vez e tem acesso vitalício, incluindo atualizações futuras da biblioteca sem custo adicional.</p>
+      </details>
+      <details>
+        <summary>E se eu não gostar?</summary>
+        <p>Você tem 7 dias de garantia incondicional. Se não for pra você, é só solicitar o reembolso.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2 style="margin:0 auto 16px">600 prompts esperando por você. <span class="accent" style="color:var(--accent)">Bora começar?</span></h2>
+    <p>Acesso imediato · pagamento único · garantia de 7 dias</p>
+    <a href="https://pay.kiwify.com.br/Po6FZDE" class="btn-offer">QUERO A BIBLIOTECA DE PROMPTS →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-brand">Biblioteca de Prompts</div>
+    <div class="f-links">
+      <span>Um produto Nexus</span>
+      <span>Suporte via WhatsApp</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
